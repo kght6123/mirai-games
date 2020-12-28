@@ -1,14 +1,17 @@
 <template>
-  <div>
-    <organism-sign-in-and-out />
-    <organism-create-room />
-  </div>
+  <div>jinro-room-id {{ roomId }}</div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  data() {
+    return {
+      roomId: this.$route.params.jinroRoomId,
+    }
+  },
+})
 </script>
 
 <style>

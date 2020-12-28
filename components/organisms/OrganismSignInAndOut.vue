@@ -21,7 +21,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import * as firebase from 'firebase/app'
-import { getters, RootState } from '~/store'
+import {
+  getters,
+  actions,
+  RootState,
+} from '~/store/organism-models/OrganismSignInAndOut'
 import 'firebase/auth'
 import 'firebaseui/dist/firebaseui.css'
 export default Vue.extend({
@@ -50,7 +54,7 @@ export default Vue.extend({
       }
     )
     // this.$nuxt.$loading.finish()
-    if (fbUser) this.onSignIn(fbUser)
+    if (fbUser) await this.onSignIn(fbUser)
     else this.onSignOut()
   },
   mounted() {
@@ -65,16 +69,26 @@ export default Vue.extend({
     console.log(name)
   },
   methods: {
-    onSignIn(fbUser: firebase.default.User) {
+    async onSignIn(fbUser: firebase.default.User) {
       console.log(`login!!!`, fbUser)
       this.isLogin = true
-      this.$firestore.collection('users').doc(fbUser.uid).set({
+      await this.$store.dispatch(
+        `organism-models/OrganismSignInAndOut/doLoginFbUser`,
+        fbUser,
+        { root: true }
+      )
+      await this.$firestore.collection('users').doc(fbUser.uid).set({
         fbid: fbUser.uid,
         lastLoginAt: this.$firestoreServerTimestamp,
       })
     },
-    onSignOut() {
+    async onSignOut() {
       console.log(`logout`)
+      await this.$store.dispatch(
+        `organism-models/OrganismSignInAndOut/doLoginFbUser`,
+        null,
+        { root: true }
+      )
       this.isLogin = false
     },
     async logout() {
@@ -92,10 +106,12 @@ export default Vue.extend({
         signInOptions: [
           // Google
           firebase.default.auth.GoogleAuthProvider.PROVIDER_ID,
-          // Twitter
-          // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+          // EMail
+          firebase.default.auth.EmailAuthProvider.PROVIDER_ID,
           // Github
           firebase.default.auth.GithubAuthProvider.PROVIDER_ID,
+          // Guest
+          firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
         ],
         callbacks: {
           signInSuccessWithAuthResult(
@@ -106,6 +122,7 @@ export default Vue.extend({
             return true
           },
         },
+        autoUpgradeAnonymousUsers: true,
       }
       const ui =
         firebaseui.auth.AuthUI.getInstance() ||

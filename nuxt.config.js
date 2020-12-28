@@ -1,3 +1,5 @@
+const env = require(`./env.json`)
+
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
@@ -12,6 +14,11 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+
+  /*
+   ** Customize the progress-bar color
+   */
+  loading: '~/components/loading.vue',
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
@@ -43,4 +50,7 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  // env
+  env: env,
 }
