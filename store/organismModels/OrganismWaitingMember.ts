@@ -17,16 +17,16 @@ export const actions = actionTree(
   { state, getters, mutations },
   {
     async entryMember({ commit }, roomId: string) {
-      const fbUserUid = this.app.$accessor.organismModels.OrganismSignInAndOut
+      const fbLoginUid = this.app.$accessor.organismModels.OrganismSignInAndOut
         .fbUserUid
       const result = await this.$firestore
         .collection('jinro-rooms')
         .doc(roomId)
         .collection('entry-users')
-        .doc(fbUserUid as string)
+        .doc(fbLoginUid as string)
         .set({
           roomId,
-          fbUserUid,
+          fbLoginUid,
           entryAt: this.$firestoreServerTimestamp,
         })
       console.log('entryMember', result)
