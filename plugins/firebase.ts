@@ -43,16 +43,16 @@ declare module '@nuxt/types' {
   }
 }
 
-declare module 'vuex/types/index' {
-  interface Store<S> {
-    $authFunc: Function
-    $auth: firebase.default.auth.Auth
-    $firestoreFunc: Function
-    $firestore: firebase.default.firestore.Firestore
-    $firestoreServerTimestamp: firebase.default.firestore.FieldValue
-    $firestoreIncrement: Function
-  }
-}
+// declare module 'vuex/types/index' {
+//   interface Store<S> {
+//     $authFunc: Function
+//     $auth: firebase.default.auth.Auth
+//     $firestoreFunc: Function
+//     $firestore: firebase.default.firestore.Firestore
+//     $firestoreServerTimestamp: firebase.default.firestore.FieldValue
+//     $firestoreIncrement: Function
+//   }
+// }
 
 const plugin: Plugin = (_context, inject) => {
   if (!firebase.default.apps.length) {

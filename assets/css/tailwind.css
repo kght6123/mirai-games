@@ -3,9 +3,29 @@
 @import 'tailwindcss/utilities';
 
 body {
-  @apply bg-gray-700;
+  @apply bg-gray-700 text-gray-100;
 }
 
 .flex-center-center {
   @apply flex flex-row flex-no-wrap justify-center items-center content-center;
+}
+
+.btn--primary {
+  @apply text-gray-100 bg-indigo-500 border-0 py-2 px-8 rounded w-full;
+}
+.btn--primary:focus {
+  @apply bg-indigo-600 outline-none;
+}
+.btn--primary:hover {
+  @apply bg-indigo-600;
+}
+
+.btn--secondary {
+  @apply text-gray-100 bg-gray-800 border-0 py-2 px-8 rounded w-full;
+}
+.btn--secondary:focus {
+  @apply bg-gray-900 outline-none;
+}
+.btn--secondary:hover {
+  @apply bg-gray-900;
 }

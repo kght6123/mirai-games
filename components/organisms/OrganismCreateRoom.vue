@@ -1,18 +1,16 @@
 <template>
-  <div>
-    <atom-button
-      @click="generageRoom"
-      class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-      >部屋を作る</atom-button
+  <div
+    v-if="$store.getters['organismModels/OrganismSignInAndOut/isLogin']"
+    class="pb-2"
+  >
+    <atom-button v-if="roomId === ''" @click="generageRoom" class="btn--primary"
+      >Create room</atom-button
     >
-    <p v-if="roomId !== ''">
+    <p v-if="roomId !== ''" class="mb-2">
       クリップボードに部屋のURLを貼り付けました、SNSやチャットを使って他の参加者に伝えてください。
     </p>
-    <atom-button
-      v-if="roomId !== ''"
-      @click="gotoRoom"
-      class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-      >部屋に移動する</atom-button
+    <atom-button v-if="roomId !== ''" @click="gotoRoom" class="btn--primary"
+      >Move room</atom-button
     >
     <atom-textbox v-model="roomId" class="hidden" />
   </div>
@@ -42,6 +40,7 @@ export default Vue.extend({
     this.$nextTick(() => {
       setTimeout(() => {
         // this.$nuxt.$loading.finish()
+        console.log('this.$store.getters', this.$store.getters)
       }, 250)
     })
   },
@@ -54,8 +53,8 @@ export default Vue.extend({
     },
     gotoRoom() {
       this.$router.push({
-        name: 'jinroRoomId',
-        params: { jinroRoomId: this.roomId },
+        name: 'jinroRoom-roomId',
+        params: { roomId: this.roomId },
       })
     },
   },

@@ -1,5 +1,8 @@
 <template>
-  <div>jinro-room-id {{ roomId }}</div>
+  <div>
+    <organism-waiting-member :roomId="$route.params.roomId" />
+    <organism-sign-in-and-out />
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,7 +11,7 @@ import Vue from 'vue'
 export default Vue.extend({
   data() {
     return {
-      roomId: this.$route.params.jinroRoomId,
+      roomId: this.$route.params.roomId,
     }
   },
 })

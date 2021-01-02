@@ -40,6 +40,8 @@ export default {
     '@nuxtjs/tailwindcss',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+    // Doc: https://typed-vuex.roe.dev
+    'nuxt-typed-vuex',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)

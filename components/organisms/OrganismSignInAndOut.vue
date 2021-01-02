@@ -1,19 +1,20 @@
 <template>
   <div>
     <div
-      v-show="isLogin === false"
+      v-show="
+        $store.getters['organismModels/OrganismSignInAndOut/isLogin'] === false
+      "
       class="flex-center-center"
-      style="width: 100vw; height: 100vh"
     >
       <div id="firebaseui-auth-container" ref="firebaseui-auth-container"></div>
     </div>
-    <div v-if="isLogin !== false" class="p-2">
-      <button
-        class="bg-gray-800 text-gray-100 p-2 rounded-lg w-full"
-        @click="logout"
-      >
-        Logout
-      </button>
+    <div
+      v-if="
+        $store.getters['organismModels/OrganismSignInAndOut/isLogin'] !== false
+      "
+      class="pb-2"
+    >
+      <button class="btn--secondary" @click="logout">Logout</button>
     </div>
   </div>
 </template>
@@ -21,23 +22,17 @@
 <script lang="ts">
 import Vue from 'vue'
 import * as firebase from 'firebase/app'
-import {
-  getters,
-  actions,
-  RootState,
-} from '~/store/organism-models/OrganismSignInAndOut'
+import { getters, actions } from '~/store/organismModels/OrganismSignInAndOut'
 import 'firebase/auth'
 import 'firebaseui/dist/firebaseui.css'
 export default Vue.extend({
   data() {
-    return {
-      isLogin: false,
-    }
+    return {}
   },
   computed: {
     myThings: {
       get(): any[] {
-        return (this.$store.state as RootState).things
+        return this.$accessor.things
       },
       /* set(value: any): void {}, */
     },
@@ -71,9 +66,8 @@ export default Vue.extend({
   methods: {
     async onSignIn(fbUser: firebase.default.User) {
       console.log(`login!!!`, fbUser)
-      this.isLogin = true
       await this.$store.dispatch(
-        `organism-models/OrganismSignInAndOut/doLoginFbUser`,
+        `organismModels/OrganismSignInAndOut/doLoginFbUser`,
         fbUser,
         { root: true }
       )
@@ -85,11 +79,10 @@ export default Vue.extend({
     async onSignOut() {
       console.log(`logout`)
       await this.$store.dispatch(
-        `organism-models/OrganismSignInAndOut/doLoginFbUser`,
+        `organismModels/OrganismSignInAndOut/doLoginFbUser`,
         null,
         { root: true }
       )
-      this.isLogin = false
     },
     async logout() {
       await firebase.default.auth().signOut()
