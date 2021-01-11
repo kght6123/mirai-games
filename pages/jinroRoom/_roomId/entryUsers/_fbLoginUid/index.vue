@@ -1,7 +1,13 @@
 <template>
   <div>
     RoomId : {{ $route.params.roomId }}<br />
-    LoginUid : {{ $route.params.fbLoginUid }}
+    LoginUid : {{ $route.params.fbLoginUid }}<br />
+    他の参加者を待っています。しばらく、お待ちください。。。<br />
+    <organism-waiting-member
+      :roomId="$route.params.roomId"
+      :fbLoginUid="$route.params.fbLoginUid"
+    />
+    <organism-sign-in-and-out />
   </div>
 </template>
 

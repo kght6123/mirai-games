@@ -4,8 +4,8 @@ import * as firebase from 'firebase/app'
 export const state = () => ({
   things: [] as string[],
   name: 'Me',
-  fbUserUid: null as String | null,
-  login: false as Boolean,
+  fbUserUid: null as string | null,
+  login: false as boolean,
 })
 
 export const getters = getterTree(state, {

@@ -3,8 +3,10 @@
     class="pb-2"
     v-if="$store.getters['organismModels/OrganismSignInAndOut/isLogin']"
   >
-    jinro-room-id {{ roomId }}
-    <atom-button @click="entryRoom" class="btn--primary">Entry</atom-button>
+    {{ nickname }}<br />
+    <atom-button @click="unEntryRoomAndBack" class="btn--primary"
+      >Back</atom-button
+    >
   </div>
 </template>
 
@@ -13,23 +15,39 @@ import Vue from 'vue'
 export default Vue.extend({
   props: {
     roomId: { type: String, required: true },
+    fbLoginUid: { type: String, required: true },
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    nickname: {
+      get(): string {
+        return this.$accessor.organismModels.OrganismWaitingMember.getNickname
+      },
+    },
   },
   mounted() {
     // this.$nuxt.$loading.start()
     this.$nextTick(() => {
-      setTimeout(() => {
+      setTimeout(async () => {
         // this.$nuxt.$loading.finish()
+        console.log('mounted $nextTick.')
+        await this.$accessor.organismModels.OrganismWaitingMember.waitingMember(
+          this.roomId as string
+        )
       }, 250)
     })
   },
+  beforeDestroy() {
+    console.log('beforeDestroy.')
+    this.$accessor.organismModels.OrganismWaitingMember.doUnsubscribe()
+  },
   methods: {
-    entryRoom() {
-      // 参加登録をする
-      // console.log('this', this)
-      // $accessor["organismModels"].OrganismWaitingMember.entryMember
-      this.$accessor.organismModels.OrganismWaitingMember.entryMember(
-        this.roomId as string
-      )
+    async unEntryRoomAndBack() {
+      await this.$accessor.organismModels.OrganismWaitingMember.doUnsubscribe()
+      // 前のページに戻る
+      this.$router.back()
     },
   },
 })

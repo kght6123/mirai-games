@@ -1,6 +1,6 @@
 <template>
   <div>
-    <organism-waiting-member :roomId="$route.params.roomId" />
+    <organism-entry-member :roomId="$route.params.roomId" />
     <organism-sign-in-and-out />
   </div>
 </template>
