@@ -1,4 +1,8 @@
 import { getterTree, mutationTree, actionTree } from 'nuxt-typed-vuex'
+import {
+  EntryUser,
+  EntryUserConverter,
+} from '~/assets/ts/firestoreModels/EntryUser'
 
 export const state = () => ({
   things: [] as string[],
@@ -46,10 +50,15 @@ export const actions = actionTree(
         .doc(roomId)
         .collection('entry-users')
         .onSnapshot({
-          next: (
+          next: async (
             snapshot: firebase.default.firestore.QuerySnapshot<firebase.default.firestore.DocumentData>
           ) => {
             console.log('next onSnapshot.', snapshot)
+            const docSnapShot = await snapshot.docs[0].ref
+              .withConverter(EntryUserConverter)
+              .get()
+            const { fbLoginUid, nickname } = docSnapShot.data() as EntryUser
+            console.log('next EntryUser.', fbLoginUid, nickname)
           },
           error: (error: firebase.default.firestore.FirestoreError) => {
             console.warn('error onSnapshot.', error)

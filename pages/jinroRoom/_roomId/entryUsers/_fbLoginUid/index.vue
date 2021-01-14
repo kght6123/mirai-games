@@ -3,6 +3,7 @@
     RoomId : {{ $route.params.roomId }}<br />
     LoginUid : {{ $route.params.fbLoginUid }}<br />
     他の参加者を待っています。しばらく、お待ちください。。。<br />
+    <atom-loading-animation />
     <organism-waiting-member
       :roomId="$route.params.roomId"
       :fbLoginUid="$route.params.fbLoginUid"
