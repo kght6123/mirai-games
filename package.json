@@ -1,0 +1,21 @@
+{
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:server": "vite",
+    "dev:css": "npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css -w",
+    "build": "npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css && vite build",
+    "build:prod": "NODE_ENV=production npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css --minify && vite build",
+    "serve": "vite preview",
+    "clean": "npx clear-npx-cache"
+  },
+  "dependencies": {
+    "vue": "^3.0.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.2.3",
+    "@vue/compiler-sfc": "^3.0.5",
+    "npm-run-all": "^4.1.5",
+    "vite": "^2.3.8"
+  }
+}
