@@ -629,3 +629,7 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgba(245, 158, 11, var(--tw-bg-opacity));
 }
+
+.filter {
+  filter: var(--tw-filter);
+}
