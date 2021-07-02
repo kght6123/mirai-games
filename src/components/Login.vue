@@ -1,14 +1,20 @@
 <template>
   <div id="firebaseui-auth-container"></div>
+  <div v-if="state.login === true">
+    <button @click="onSignOut">Logout ({{ state.fbUser.uid }})</button>
+  </div>
 </template>
 
 <script>
-import { defineComponent, onMounted } from "vue";
-// import { useAuthStore } from "@/stores/auth";
+// vue
+import { defineComponent, ref, onMounted } from "vue";
+// firebase
 import firebase from "firebase/app";
 import "firebase/auth";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
+// stores
+import { useFbAuthStore } from "../stores/auth";
 
 const uiConfig = {
   // ログイン完了時のリダイレクト先
@@ -38,25 +44,45 @@ const uiConfig = {
 export default defineComponent({
   name: "Login",
   setup() {
-    // const { state, updateUser } = useAuthStore()
-    // const displayName = ref("");
-    // const photoURL = ref("");
-    // const update = () =>
-    //   updateUser({ displayName: displayName.value, photoURL: photoURL.value })
-
-    // watchEffect(() => {
-    //   displayName.value = state.displayName
-    //   photoURL.value = state.photoURL
-    // })
     console.log("setup!");
-    onMounted(() => {
+    let fbUser = ref({});
+
+    // store
+    const { state, updateFbUser } = useFbAuthStore();
+    const onSignIn = (fbUser) => updateFbUser(fbUser);
+    const onSignOut = async () => {
+      await firebase.default.auth().signOut();
+      removeFbUser();
+    };
+
+    // life cicle
+    onMounted(async () => {
+      console.log("mounted!");
+      // ログイン情報を取得する
+      fbUser.value = await new Promise((resolve, _reject) => {
+        firebase.default.auth().onAuthStateChanged((fbUser) => {
+          onSignIn(fbUser);
+          resolve(fbUser);
+        });
+      });
+      console.log(fbUser.value);
+      // ログインUIを表示する
       const ui =
         firebaseui.auth.AuthUI.getInstance() ||
         new firebaseui.auth.AuthUI(firebase.default.auth());
       ui.start("#firebaseui-auth-container", uiConfig);
       console.log("ui started!");
     });
+    // const displayName = ref("");
+    // const photoURL = ref("");
+
+    // watchEffect(() => {
+    //   displayName.value = state.displayName
+    //   photoURL.value = state.photoURL
+    // })
     return {
+      state,
+      onSignOut,
       /* displayName, photoURL, update */
     };
   },
