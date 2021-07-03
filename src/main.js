@@ -8,7 +8,9 @@ import config from "../firebase.config";
 // tailwind css
 import "./tailwind.dist.css";
 // stores
-import fbAuthStore, { fbAuthStoreKey } from "./stores/auth";
+import fbAuthStore, { fbAuthStoreKey } from "./stores/LoginAndLogout";
+// router
+import router from "./router";
 
 // init firebase
 firebase.initializeApp(config);
@@ -16,5 +18,6 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 // create app
 const app = createApp(App);
+app.use(router);
 app.provide(fbAuthStoreKey, fbAuthStore());
 app.mount("#app");

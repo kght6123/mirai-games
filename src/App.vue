@@ -1,12 +1,11 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
-  <Login />
+  <router-view />
+  <router-view name="login"></router-view>
 </template>
 
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import Login from "./components/Login.vue";
+// import HelloWorld from "./pages/HelloWorld.vue";
+// import Login from "./pages/Login.vue";
 </script>
 
 <script>
@@ -54,6 +53,7 @@ export default defineComponent({
 </script>
 
 <style>
+/*
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -62,4 +62,5 @@ export default defineComponent({
   color: #2c3e50;
   margin-top: 60px;
 }
+*/
 </style>

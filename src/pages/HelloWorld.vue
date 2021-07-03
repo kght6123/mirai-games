@@ -1,4 +1,6 @@
 <template>
+  <img alt="Vue logo" src="../assets/logo.png" />
+
   <h1 class="bg-red-400">{{ msg }}</h1>
 
   <p class="bg-[#1da1f1]">

@@ -1,4 +1,7 @@
 import { inject, reactive } from "vue";
+// firebase
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 
 const fbAuthStore = () => {
   console.log("init fbAuthStore");
@@ -11,8 +14,19 @@ const fbAuthStore = () => {
     }
   };
   const removeFbUser = () => setFbUser(null);
-  const updateFbUser = (fbUser) => {
-    setFbUser(fbUser);
+  const updateFbUser = async (fbUser) => {
+    console.log(fbUser);
+    if (fbUser) {
+      await firebase.default
+        .firestore()
+        .collection("users")
+        .doc(fbUser.uid)
+        .set({
+          fbid: fbUser.uid,
+          lastLoginAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+        });
+      setFbUser(fbUser);
+    }
   };
   return {
     state,
