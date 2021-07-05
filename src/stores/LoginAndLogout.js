@@ -5,13 +5,19 @@ import "firebase/firestore";
 
 const fbAuthStore = () => {
   console.log("init fbAuthStore");
-  const state = reactive({ login: false, fbUser: null });
+  const state = reactive({ login: false, fbUser: null, nickname: null });
   const setFbUser = (fbUser) => {
     state.login = !!fbUser;
     console.log(`state.login=${state.login}`);
     if (fbUser) {
       state.fbUser = fbUser;
     }
+  };
+  const setNickname = (nickname) => {
+    state.nickname = nickname;
+  };
+  const getNickname = () => {
+    return state.nickname;
   };
   const removeFbUser = () => setFbUser(null);
   const updateFbUser = async (fbUser) => {
@@ -31,6 +37,8 @@ const fbAuthStore = () => {
   return {
     state,
     setFbUser,
+    setNickname,
+    getNickname,
     removeFbUser,
     updateFbUser,
   };

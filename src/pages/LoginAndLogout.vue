@@ -94,6 +94,5 @@ export default defineComponent({
       /* displayName, photoURL, update */
     };
   },
-  onMounted() {},
 });
 </script>

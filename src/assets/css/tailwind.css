@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply p-4 text-gray-100 bg-gray-700;
+  }
+}
+
+@layer components {
+  .btn--primary {
+    @apply w-full px-8 py-2 text-gray-100 bg-indigo-500 border-0 rounded;
+  }
+  .btn--primary:focus {
+    @apply bg-indigo-600 outline-none;
+  }
+  .btn--primary:hover {
+    @apply bg-indigo-600;
+  }
+  .btn--secondary {
+    @apply w-full px-8 py-2 text-gray-100 bg-gray-800 border-0 rounded;
+  }
+  .btn--secondary:focus {
+    @apply bg-gray-900 outline-none;
+  }
+  .btn--secondary:hover {
+    @apply bg-gray-900;
+  }
+  .textbox {
+    @apply w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none;
+  }
+  .textbox:focus {
+    @apply border-indigo-500;
+  }
+  .textbox:hover {
+    @apply border-indigo-500;
+  }
+}
+
+@layer utilities {
+  .flex-center-center {
+    @apply flex flex-row items-center content-center justify-center flex-nowrap;
+  }
+}
