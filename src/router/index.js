@@ -4,6 +4,7 @@ import HelloWorld from "../pages/HelloWorld.vue";
 import Menu from "../pages/Menu.vue";
 import CreateRoom from "../pages/CreateRoom.vue";
 import EntryMember from "../pages/EntryMember.vue";
+import WaitingMember from "../pages/WaitingMember.vue";
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
     path: "/wordWolf/:roomId",
     name: "wordWolf-roomId",
     components: { default: EntryMember, login: LoginAndLogout },
+    props: { default: true, login: false },
+  },
+  {
+    path: "/wordWolf/:roomId/waiting",
+    name: "wordWolf-roomId-waiting",
+    components: { default: WaitingMember, login: LoginAndLogout },
     props: { default: true, login: false },
   },
 ];

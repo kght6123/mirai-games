@@ -4,12 +4,15 @@
     "dev": "npm-run-all --parallel dev:*",
     "dev:server": "vite",
     "dev:css": "npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css -w",
-    "build": "npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css && vite build",
-    "build:prod": "NODE_ENV=production npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css --minify && vite build",
+    "dev:cap": "npx cap sync web && cp ./dist/capacitor.js ./public/",
+    "build": "npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css && vite build && npx cap sync web",
+    "build:prod": "NODE_ENV=production npx tailwindcss -i src/assets/css/tailwind.css -o src/tailwind.dist.css --minify && vite build && npx cap sync web",
     "serve": "vite preview",
     "clean": "npx clear-npx-cache"
   },
   "dependencies": {
+    "@capacitor/cli": "^3.1.1",
+    "@capacitor/core": "^3.1.1",
     "firebase": "^8.6.8",
     "firebaseui": "^4.8.0",
     "vue": "^3.0.5",

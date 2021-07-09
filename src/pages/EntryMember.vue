@@ -61,10 +61,9 @@ export default defineComponent({
       // )
       // 参加登録済みに移動する
       router.push({
-        name: 'jinroRoom-roomId-entryUsers-fbLoginUid',
+        name: 'wordWolf-roomId-waiting',
         params: {
           roomId: props.roomId,
-          fbLoginUid: state.fbUser.uid,
         },
       })
     }

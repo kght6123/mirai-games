@@ -1,0 +1,6 @@
+{
+  "appId": "jp.kght6123.miraigames",
+  "appName": "MiraiGames",
+  "webDir": "dist",
+  "bundledWebRuntime": true
+}
